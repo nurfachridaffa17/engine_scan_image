@@ -30,18 +30,15 @@ def data_ktp():
         if length <= len(list_files()):
             length += 1
 
-
-        # jenis_kelamin = 1 if data_ktp[0]['gender'] == 'Male' else 2
-
         data = {
             'id' :length,
             'id_user': 'null',
-            'jenis_kelamin': 1, 
-            'id_kawin': 'null', 
+            'jenis_kelamin': data_ktp[0]['gender'], 
+            'id_kawin': data_ktp[0]['marital_status'], 
             'id_status': 'null', 
-            'id_pekerjaan': 'null', 
+            'id_pekerjaan': data_ktp[0]['occupation'], 
             'id_struktur': 'null', 
-            'id_agama': 'null', 
+            'id_agama': data_ktp[0]['religion'], 
             'id_organisasi': 'null', 
             'kode_member': 'null', 
             'nik': data_ktp[0]['identity_number'], 
@@ -56,12 +53,17 @@ def data_ktp():
             'alamat_ktp': data_ktp[0]['address'], 
             'desc': 'null', 
             'created': 'null', 
-            'createdby': 'null', 
+            'createdby': 1, 
             'updated': 'null', 
-            'updatedby': 'null', 
+            'updatedby': 1, 
             'isactive': 'null', 
             'id_kategori': 'null'
             }
+        
+        if data_ktp[0]['gender'] == 'Male':
+            data['jenis_kelamin'] = 1
+        else:
+            data['jenis_kelamin'] = 2
         
         if data_ktp[0]['occupation'] == 'Mengurus Rumah Tangga':
             data['id_pekerjaan'] = 1
@@ -96,8 +98,6 @@ def data_ktp():
 
         data_img.append(data)
         
-    
-        
 
     df = pd.DataFrame(data_img)
 
@@ -105,9 +105,7 @@ def data_ktp():
         print("DataFrame is empty.")
     else:
         print("DataFrame has data.")
-        df.to_csv('data_ktp_8.csv', header=True, index=False, na_rep='null')
-
-    # print(data)
+        df.to_csv('data_ktp_4.csv', header=True, index=False, na_rep='null')
 
 
 list_files()
